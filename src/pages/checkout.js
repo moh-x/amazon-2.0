@@ -47,6 +47,7 @@ function Checkout() {
                   category={item.category}
                   image={item.image}
                   hasPrime={item.hasPrime}
+                  units={item.units}
                 />
               );
             })}

@@ -20,6 +20,7 @@ function Product({ id, title, price, description, category, image }) {
       category,
       image,
       hasPrime,
+      units: 1,
     };
     dispatch(addToBasket(product));
   };
