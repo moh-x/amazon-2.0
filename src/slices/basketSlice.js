@@ -74,7 +74,7 @@ export const { addToBasket, removeFromBasket, addOne, removeOne } =
 export const selectItems = (state) => state.basket.items;
 export const selectTotal = (state) =>
   state.basket.items.reduce(
-    (total, item) => total + item.price * item.units,
+    (total, item) => total + item.price * item.units * 100,
     0
   );
 
