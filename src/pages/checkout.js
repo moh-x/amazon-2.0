@@ -6,14 +6,40 @@ import Header from "../components/Header";
 import { selectItems, selectTotal } from "../slices/basketSlice";
 import { useSession } from "next-auth/client";
 import { loadStripe } from "@stripe/stripe-js";
+import { usePaystackPayment } from "react-paystack";
+import axios from "axios";
 
 const stripePromise = loadStripe();
+
+const config = {
+  reference: new Date().getTime().toString(),
+  email: "user@example.com",
+  amount: 20000,
+  publicKey: process.env.paystack_public_key,
+};
+
+// you can call this function anything
 
 function Checkout() {
   const items = useSelector(selectItems);
   const total = useSelector(selectTotal);
   const [session] = useSession();
-  const createCheckoutSession = () => {};
+
+  // you can call this function anything
+  const onClose = () => {
+    // implementation for  whatever you want to do when the Paystack dialog closed.
+    console.log("closed");
+  };
+  const createCheckoutSession = async () => {
+    // const initializePayment = usePaystackPayment(config);
+
+    const onSuccess = await axios.post("/api/create-checkout-session", {
+      items,
+      email: session.user.email,
+    });
+
+    // initializePayment(onSuccess, onClose);
+  };
 
   return (
     <div className="bg-gray-100">
